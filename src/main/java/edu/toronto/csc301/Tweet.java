@@ -56,8 +56,12 @@ public class Tweet implements ITweet{
 		return null;
 	}
 
-	
+
 	public boolean checkLegalUsername(String username){
+		//update the method to count the numnber of chars
+		if (username.length()>32){
+			return false;
+		}
 		for(int i = 0; i < username.length(); i++){
 			char c = username.charAt(i);
 			if (((c > 'a') && (c < 'z')) || ((c > 'A') && (c < 'Z')) || ((c > 0) && (c < 9)) || (c == '_')){
@@ -67,4 +71,19 @@ public class Tweet implements ITweet{
 		}
 		return true;
 	}
+	public boolean checkLegalText(String text){
+		if (text.length() > 140){
+			return false;
+		}
+		for (int i = 0; i<text.length(); i++){
+			char c = text.charAt(i);
+			if (((c > 'a') && (c < 'z')) || ((c > 'A') && (c < 'Z')) || ((c > 0) && (c < 9)) || (c == '_')){
+			} 
+			else {
+				return false;
+			}
+		}
+		return true;
+	}
+}
 }
