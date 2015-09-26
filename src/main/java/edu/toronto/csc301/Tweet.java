@@ -3,6 +3,7 @@ package edu.toronto.csc301;
 import java.util.Set;
 
 public class Tweet implements ITweet{
+	
 
 	@Override
 	public String getUsername() {
