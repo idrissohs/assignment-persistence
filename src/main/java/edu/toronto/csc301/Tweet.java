@@ -4,13 +4,17 @@ import java.util.Set;
 
 public class Tweet implements ITweet{
 	
-	public Tweet (String a, String b){
-		
+	public static String tweet;
+	public static String user;
+	
+	public Tweet (String username, String text){
+		user=username;
+		tweet=text;
 	}
 	@Override
 	public String getUsername() {
 		// TODO Auto-generated method stub
-		return null;
+		return user;
 	}
 
 	@Override
@@ -22,14 +26,14 @@ public class Tweet implements ITweet{
 		if(!(checkLegalUsername(username))){
 			throw new IllegalArgumentException();
 		}
-		
+		user=username;
 		//Checks Complete. Add rest of the functionality;
 	}
 
 	@Override
 	public String getText() {
 		// TODO Auto-generated method stub
-		return null;
+		return tweet;
 	}
 
 	@Override
@@ -43,6 +47,7 @@ public class Tweet implements ITweet{
 		}
 		
 		//Checks Complete. Add rest of the functionality.
+		tweet=text;
 	}
 
 	@Override
