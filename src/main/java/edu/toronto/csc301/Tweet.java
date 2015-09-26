@@ -3,8 +3,10 @@ package edu.toronto.csc301;
 import java.util.Set;
 
 public class Tweet implements ITweet{
-	
 
+	public Tweet (String a, String b){
+		
+	}
 	@Override
 	public String getUsername() {
 		// TODO Auto-generated method stub
