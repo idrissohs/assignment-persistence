@@ -3,14 +3,21 @@ package edu.toronto.csc301;
 import java.util.Set;
 
 public class Tweet implements ITweet{
+	
+	private String username;
+	private String text;
 
-	public Tweet (String a, String b){
-		
+	public Tweet (String username, String text){
+		this.username = username;
+		this.text = text;
 	}
+	
+	public Tweet() {
+	}
+	
 	@Override
 	public String getUsername() {
-		// TODO Auto-generated method stub
-		return null;
+		return username;
 	}
 
 	@Override
@@ -23,13 +30,14 @@ public class Tweet implements ITweet{
 			throw new IllegalArgumentException();
 		}
 		
+		this.username = username;
+		
 		//Checks Complete. Add rest of the functionality;
 	}
 
 	@Override
 	public String getText() {
-		// TODO Auto-generated method stub
-		return null;
+		return text;
 	}
 
 	@Override
@@ -42,6 +50,7 @@ public class Tweet implements ITweet{
 			throw new IllegalArgumentException();
 		}
 		
+		this.text = text;
 		//Checks Complete. Add rest of the functionality.
 	}
 
@@ -55,7 +64,7 @@ public class Tweet implements ITweet{
 	public boolean checkLegalUsername(String username){
 		for(int i = 0; i < username.length(); i++){
 			char c = username.charAt(i);
-			if (((c > 'a') && (c < 'z')) || ((c > 'A') && (c < 'Z')) || ((c > 0) && (c < 9)) || (c == '_')){
+			if (((c >= 'a') && (c <= 'z')) || ((c >= 'A') && (c <= 'Z')) || ((c >= 0) && (c <= 9)) || (c == '_')){
 			} else {
 				return false;
 			}
