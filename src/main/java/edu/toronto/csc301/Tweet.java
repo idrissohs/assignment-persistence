@@ -4,21 +4,21 @@ import java.util.Set;
 
 public class Tweet implements ITweet{
 	
-	public String tweet;
-	public String user;
-	
+	private String username;
+	private String text;
+
 	public Tweet (String username, String text){
-		if(username == null || text == null){
-			throw new NullPointerException();
-		}
-		
-		setUsername(username);
-		setText(text);
+		this.username = username;
+		this.text = text;
 	}
+	
+	public Tweet() {
+	}
+	
 	@Override
 	public String getUsername() {
 		// TODO Auto-generated method stub
-		return user;
+		return this.username;
 	}
 	
 	//equals method to compare tweet objects
@@ -39,16 +39,14 @@ public class Tweet implements ITweet{
 		if((checkLegalUsername(username))){
 			throw new IllegalArgumentException();
 		}
-		else{
-		user=username;
-		}
+		this.username = username;
 		//Checks Complete. Add rest of the functionality;
 	}
 
 	@Override
 	public String getText() {
 		// TODO Auto-generated method stub
-		return tweet;
+		return text;
 	}
 
 	@Override
@@ -61,8 +59,8 @@ public class Tweet implements ITweet{
 			throw new IllegalArgumentException();
 		}
 		
+		this.text = text;
 		//Checks Complete. Add rest of the functionality.
-		tweet=text;
 	}
 
 	@Override
@@ -80,7 +78,7 @@ public class Tweet implements ITweet{
 		}
 		for(int i = 0; i < username.length(); i++){
 			char c = username.charAt(i);
-			if (((c > 'a') && (c < 'z')) || ((c > 'A') && (c < 'Z')) || ((c > 0) && (c < 9)) || (c == '_')){
+			if (((c >= 'a') && (c <= 'z')) || ((c >= 'A') && (c <= 'Z')) || ((c >= 0) && (c <= 9)) || (c == '_')){
 			} else {
 				return false;
 			}
