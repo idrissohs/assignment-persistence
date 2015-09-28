@@ -23,6 +23,8 @@ public interface ITweet {
 	 */
 	public void setText(String text);
 	
+	public boolean equals(Tweet obj);
+	
 	/**
 	 * NOTE: For the purpose of this assignment, hash-tags can contain
 	 * only alphanumeric characters (i.e. English letters and digits) and

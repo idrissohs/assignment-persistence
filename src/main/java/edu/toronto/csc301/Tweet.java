@@ -4,17 +4,30 @@ import java.util.Set;
 
 public class Tweet implements ITweet{
 	
-	public static String tweet;
-	public static String user;
+	public String tweet;
+	public String user;
 	
 	public Tweet (String username, String text){
-		user=username;
-		tweet=text;
+		if(username == null || text == null){
+			throw new NullPointerException();
+		}
+		
+		setUsername(username);
+		setText(text);
 	}
 	@Override
 	public String getUsername() {
 		// TODO Auto-generated method stub
 		return user;
+	}
+	
+	//equals method to compare tweet objects
+	@Override
+	public boolean equals (Tweet obj){
+		if (this.getUsername().equals(obj.getUsername()) && this.getText().equals(obj.getText())){
+			return true;
+		}
+		return false;
 	}
 
 	@Override
@@ -23,10 +36,12 @@ public class Tweet implements ITweet{
 			throw new NullPointerException();
 		}
 		
-		if(!(checkLegalUsername(username))){
+		if((checkLegalUsername(username))){
 			throw new IllegalArgumentException();
 		}
+		else{
 		user=username;
+		}
 		//Checks Complete. Add rest of the functionality;
 	}
 
@@ -42,7 +57,7 @@ public class Tweet implements ITweet{
 			throw new NullPointerException();
 		}
 		
-		if(text.trim().isEmpty()){
+		if(checkLegalText(text)){
 			throw new IllegalArgumentException();
 		}
 		
@@ -59,8 +74,9 @@ public class Tweet implements ITweet{
 
 	public boolean checkLegalUsername(String username){
 		//update the method to count the numnber of chars
-		if (username.length()>32){
-			return false;
+		username.replaceAll("\\s+","");
+		if (username.length() >= 32 || username.length()==0){
+			return true;
 		}
 		for(int i = 0; i < username.length(); i++){
 			char c = username.charAt(i);
@@ -72,8 +88,9 @@ public class Tweet implements ITweet{
 		return true;
 	}
 	public boolean checkLegalText(String text){
-		if (text.length() > 140){
-			return false;
+		text.replaceAll("\\s+", "");
+		if (text.length() > 140 || text.length()==0){
+			return true;
 		}
 		for (int i = 0; i<text.length(); i++){
 			char c = text.charAt(i);
@@ -86,4 +103,4 @@ public class Tweet implements ITweet{
 		return true;
 	}
 }
-}
+
