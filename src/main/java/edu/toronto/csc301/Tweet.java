@@ -8,6 +8,9 @@ public class Tweet implements ITweet{
 	private String text;
 
 	public Tweet (String username, String text){
+		if(username.length() == 0 || text.length() == 0 || !(checkLegalUsername(username)) && !(checkLegalText(text))){
+			throw new IllegalArgumentException();
+		}
 		this.username = username;
 		this.text = text;
 	}
@@ -36,7 +39,7 @@ public class Tweet implements ITweet{
 			throw new NullPointerException();
 		}
 		
-		if((checkLegalUsername(username))){
+		if(!(checkLegalUsername(username))){
 			throw new IllegalArgumentException();
 		}
 		this.username = username;
@@ -55,7 +58,7 @@ public class Tweet implements ITweet{
 			throw new NullPointerException();
 		}
 		
-		if(checkLegalText(text)){
+		if(!(checkLegalText(text))){
 			throw new IllegalArgumentException();
 		}
 		
@@ -73,8 +76,8 @@ public class Tweet implements ITweet{
 	public boolean checkLegalUsername(String username){
 		//update the method to count the numnber of chars
 		username.replaceAll("\\s+","");
-		if (username.length() >= 32 || username.length()==0){
-			return true;
+		if (username.length() > 32 || username.length()==0){
+			return false;
 		}
 		for(int i = 0; i < username.length(); i++){
 			char c = username.charAt(i);
@@ -88,7 +91,7 @@ public class Tweet implements ITweet{
 	public boolean checkLegalText(String text){
 		text.replaceAll("\\s+", "");
 		if (text.length() > 140 || text.length()==0){
-			return true;
+			return false;
 		}
 		for (int i = 0; i<text.length(); i++){
 			char c = text.charAt(i);
