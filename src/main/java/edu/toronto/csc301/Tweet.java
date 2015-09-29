@@ -1,5 +1,6 @@
 package edu.toronto.csc301;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class Tweet implements ITweet{
@@ -8,11 +9,9 @@ public class Tweet implements ITweet{
 	private String text;
 
 	public Tweet (String username, String text){
-		if(username.length() == 0 || text.length() == 0 || !(checkLegalUsername(username)) && !(checkLegalText(text))){
-			throw new IllegalArgumentException();
-		}
-		this.username = username;
-		this.text = text;
+		// Class constructor initialize username and text
+		setUsername(username);
+		setText(text);
 	}
 	
 	public Tweet() {
@@ -24,14 +23,6 @@ public class Tweet implements ITweet{
 		return this.username;
 	}
 	
-	//equals method to compare tweet objects
-	@Override
-	public boolean equals (Tweet obj){
-		if (this.getUsername().equals(obj.getUsername()) && this.getText().equals(obj.getText())){
-			return true;
-		}
-		return false;
-	}
 
 	@Override
 	public void setUsername(String username) {
@@ -62,42 +53,46 @@ public class Tweet implements ITweet{
 			throw new IllegalArgumentException();
 		}
 		
+		if(text.length() > 140){
+			throw new IllegalArgumentException();
+		}
+		
 		this.text = text;
 		//Checks Complete. Add rest of the functionality.
 	}
 
 	@Override
 	public Set<String> getHashTags() {
-		// TODO Auto-generated method stub
-		return null;
+		Set<String> hashTags = new HashSet<>();
+		String [] textParts = text.split(" ");
+		for (int i = 0; i < textParts.length; i++){
+			String part = textParts[i].trim();
+			if(part.startsWith("#")){
+				String textWithoutHash = part.substring(1);
+				if(textWithoutHash.length() > 0){
+					String[] words = textWithoutHash.split("[^a-zA-Z0-9_']+");
+					hashTags.add(words[0]);
+				}
+			}
+		}
+		
+		return hashTags;
 	}
 
 
 	public boolean checkLegalUsername(String username){
-		//update the method to count the numnber of chars
-		username.replaceAll("\\s+","");
-		if (username.length() > 32 || username.length()==0){
+		// check if the username is valid
+		if(username.length() > 32){
 			return false;
 		}
+		if(username.length() == 0){
+			return false;
+		}
+		
 		for(int i = 0; i < username.length(); i++){
 			char c = username.charAt(i);
 			if (((c >= 'a') && (c <= 'z')) || ((c >= 'A') && (c <= 'Z')) || ((c >= 0) && (c <= 9)) || (c == '_')){
 			} else {
-				return false;
-			}
-		}
-		return true;
-	}
-	public boolean checkLegalText(String text){
-		text.replaceAll("\\s+", "");
-		if (text.length() > 140 || text.length()==0){
-			return false;
-		}
-		for (int i = 0; i<text.length(); i++){
-			char c = text.charAt(i);
-			if (((c > 'a') && (c < 'z')) || ((c > 'A') && (c < 'Z')) || ((c > 0) && (c < 9)) || (c == '_')){
-			} 
-			else {
 				return false;
 			}
 		}
