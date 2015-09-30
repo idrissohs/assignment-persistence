@@ -23,7 +23,7 @@ public interface ITweet {
 	 */
 	public void setText(String text);
 	
-	public boolean equals(Tweet obj);
+	public boolean equals(Object obj);
 	
 	/**
 	 * NOTE: For the purpose of this assignment, hash-tags can contain

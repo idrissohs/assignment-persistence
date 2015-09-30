@@ -1,7 +1,6 @@
 package edu.toronto.csc301;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class Tweet implements ITweet{
 	
@@ -49,7 +48,7 @@ public class Tweet implements ITweet{
 			throw new NullPointerException();
 		}
 		
-		if(!(checkLegalText(text))){
+		if(text.trim().isEmpty()){
 			throw new IllegalArgumentException();
 		}
 		
@@ -63,7 +62,7 @@ public class Tweet implements ITweet{
 
 	@Override
 	public Set<String> getHashTags() {
-		Set<String> hashTags = new HashSet<>();
+		Set<String> hashTags = new TreeSet<>();
 		String [] textParts = text.split(" ");
 		for (int i = 0; i < textParts.length; i++){
 			String part = textParts[i].trim();
@@ -98,5 +97,17 @@ public class Tweet implements ITweet{
 		}
 		return true;
 	}
+	@Override
+	public boolean equals(Object obj) {
+		if(!(Tweet.class.isAssignableFrom(obj.getClass()))){
+			return false;
+		}
+		Tweet tweet = (Tweet) obj;
+		if(tweet.getUsername().equals(this.username) && (tweet.getText().equals(text))){
+			return true;
+		}
+		return false;
+	}
+
 }
 
